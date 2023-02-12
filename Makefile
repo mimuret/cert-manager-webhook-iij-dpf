@@ -36,7 +36,7 @@ build:
 .PHONY: rendered-manifest.yaml
 rendered-manifest.yaml:
 	helm template \
-	    --name example-webhook \
+	    --name cert-manager-webhook-iij-dpf \
             --set image.repository=$(IMAGE_NAME) \
             --set image.tag=$(IMAGE_TAG) \
-            deploy/example-webhook > "$(OUT)/rendered-manifest.yaml"
+            deploy/cert-manager-webhook-iij-dpf > "$(OUT)/rendered-manifest.yaml"

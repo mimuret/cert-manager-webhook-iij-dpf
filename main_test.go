@@ -5,8 +5,7 @@ import (
 	"testing"
 
 	"github.com/cert-manager/cert-manager/test/acme/dns"
-
-	"github.com/cert-manager/webhook-example/example"
+	"github.com/mimuret/cert-manager-webhook-iij-dpf/dpf"
 )
 
 var (
@@ -26,16 +25,13 @@ func TestRunsSuite(t *testing.T) {
 	//	dns.SetManifestPath("testdata/my-custom-solver"),
 	//	dns.SetBinariesPath("_test/kubebuilder/bin"),
 	//)
-	solver := example.New("59351")
-	fixture := dns.NewFixture(solver,
-		dns.SetResolvedZone("example.com."),
-		dns.SetManifestPath("testdata/my-custom-solver"),
-		dns.SetDNSServer("127.0.0.1:59351"),
-		dns.SetUseAuthoritative(false),
+	fixture := dns.NewFixture(&dpf.DPFSolver{},
+		dns.SetResolvedZone(zone),
+		dns.SetAllowAmbientCredentials(false),
+		dns.SetManifestPath("testdata/iij-dpf-solver"),
 	)
 	//need to uncomment and  RunConformance delete runBasic and runExtended once https://github.com/cert-manager/cert-manager/pull/4835 is merged
 	//fixture.RunConformance(t)
-	fixture.RunBasic(t)
-	fixture.RunExtended(t)
+	fixture.RunConformance(t)
 
 }
